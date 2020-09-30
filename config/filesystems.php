@@ -12,8 +12,8 @@ return [
     | based disks are available to your application. Just store away!
     |
     */
-    //'default' => env('FILESYSTEM_DRIVER', 'local'),
-    'default' => env('FILESYSTEM_DRIVER', 'public'),
+    'default' => env('FILESYSTEM_DRIVER', 'local'),
+    //'default' => env('FILESYSTEM_DRIVER', 'public'),
 
     /*
     |--------------------------------------------------------------------------
@@ -62,6 +62,7 @@ return [
             'region' => env('AWS_DEFAULT_REGION'),
             'bucket' => env('AWS_BUCKET'),
             'url' => env('AWS_URL'),
+            'visibility' => 'public',
         ],
 
     ],

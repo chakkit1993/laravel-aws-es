@@ -18,7 +18,8 @@ class CreatePostsTable extends Migration
             $table->string('title');
             $table->string('description');
             $table->text('content');
-            $table->string('image');
+            $table->string('image_path');
+            $table->string('image_url');
             $table->integer('category_id');
             $table->integer('user_id');
             $table->timestamps();

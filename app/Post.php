@@ -13,7 +13,7 @@ class Post extends Model
      * @var array
      */
     protected $fillable = [
-        'title', 'description', 'content', 'image','category_id','user_id'
+        'title', 'description', 'content', 'image_path', 'image_url','category_id','user_id'
     ];
 
     public function category()
@@ -39,7 +39,9 @@ class Post extends Model
 
     public function deleteImage()
     {
-
-        Storage::delete($this->image);
+        Storage::disk('s3')->delete($this->image_path);
+       //dd($this);
+       //Storage::disk('s3')->delete('images/QwoPRuq8Pmijhf1n0Mod6SBcxs0nT5VlgJDJAXVi.jpeg');
+   
     }
 }

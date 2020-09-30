@@ -9,6 +9,9 @@ use App\Http\Requests\UpdatePostRequest;
 use App\Category;
 use App\Tag;
 use App\Http\Middleware\VerifyCategory;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
+use SebastianBergmann\Environment\Console;
 
 class PostController extends Controller
 {
@@ -50,12 +53,21 @@ class PostController extends Controller
     public function store(CreatePostRequest $request)
     {
         // insert data to db
-        $image = $request->image->store('posts');
+        //$image = $request->image->store('posts');
+
+        $file = $request->file('image');
+        $filename = $file->getClientOriginalName();
+        $filename=time().'.'.$filename;
+
+        $path = $file->store('images','s3');
+    
+        
         $post = Post::create([
             'title' => $request->title,
             'description' => $request->description,
             'content' => $request->content,
-            'image' => $image,
+            'image_path' => $path,
+            'image_url' => Storage::disk('s3')->url($path),
             'category_id' => $request->category_id,
             'user_id' => auth()->user()->id
         ]);
@@ -112,9 +124,21 @@ class PostController extends Controller
 
         if ($request->hasFile('image')) {
 
-            $image = $request->image->store('posts');
+            // $image = $request->image->store('posts');
+            // $post->deleteImage();
+            // $data['image'] = $image;
+
+            $file = $request->file('image');
+            $filename = $file->getClientOriginalName();
+            $filename=time().'.'.$filename;
+
+            $path = $file->store('images','s3');
             $post->deleteImage();
-            $data['image'] = $image;
+
+            $data['image_path'] =   $path;
+            $data['image_url'] =  Storage::disk('s3')->url($path);
+
+
         }
 
         if ($request->category_id) {
