@@ -27,8 +27,8 @@ Route::middleware(['auth'])->group(function(){
 });
 
 Route::middleware(['auth','verifyIsAdmin'])->group(function(){
-    Route::get('users','Usercontroller@index')->name('users.index');
-    Route::post('users/{user}/makeadmin','Usercontroller@makeadmin')->name('users.makeadmin');
+    Route::get('users','UserController@index')->name('users.index');
+    Route::post('users/{user}/makeadmin','UserController@makeadmin')->name('users.makeadmin');
 });
 
 

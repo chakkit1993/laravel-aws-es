@@ -3,11 +3,6 @@
 @section('content')
 <div class="container">
 
-    <div class="row">
-            <example-component></example-component>
-        
-        </div>
-
     <div class="d-flex justify-content-end mb-2">
     </div>
     <div class="card card-default">
