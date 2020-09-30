@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Post;
-use App\http\Requests\CreatePostRequest;
-use App\http\Requests\UpdatePostRequest;
+use App\Http\Requests\CreatePostRequest;
+use App\Http\Requests\UpdatePostRequest;
 use App\Category;
 use App\Tag;
 use App\Http\Middleware\VerifyCategory;
