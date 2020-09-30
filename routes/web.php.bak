@@ -31,5 +31,4 @@ Route::middleware(['auth','verifyIsAdmin'])->group(function(){
     Route::post('users/{user}/makeadmin','Usercontroller@makeadmin')->name('users.makeadmin');
 });
 
-
 Route::get('/home', 'HomeController@index')->name('home');

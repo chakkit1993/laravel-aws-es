@@ -10,7 +10,20 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
+    <script src="{{ asset('js/app.js') }}"  async defer ></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js" ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
+    <script src="{{ asset('js/sweetalert.js') }}" ></script>
+  
+
+
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/trix/1.2.4/trix-core.js" charset="utf-8"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/trix/1.2.4/trix.js" charset="utf-8"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/trix/1.2.4/trix.css">
+    <!-- <link rel="stylesheet" type="text/css" href="trix.css">
+    <script type="text/javascript" src="trix.js"></script>  -->
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -18,6 +31,7 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+   
 </head>
 <body>
     <div id="app">
@@ -51,7 +65,7 @@
                         @else
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }}
+                                    {{ Auth::user()->name }} <span class="caret"></span>
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
@@ -61,7 +75,7 @@
                                         {{ __('Logout') }}
                                     </a>
 
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                         @csrf
                                     </form>
                                 </div>
@@ -71,9 +85,60 @@
                 </div>
             </div>
         </nav>
-
+    
         <main class="py-4">
+        @auth
+        <div class="container">
+
+        <div class="row">
+        <div class="col-md-12">
+            <img scr="{{ asset('img/jo-szczepanska-bjemWZcNF34-unsplash.jpg') }}"></img>
+        </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <ul class="list-group">
+                <li  class="list-group-item">
+                <a href="{{route('categories.index')}}"> Category</a>
+                
+                </li>
+                <li  class="list-group-item">
+                <a href="{{route('posts.index')}}"> Post</a>
+                
+                </li>
+                <li  class="list-group-item">
+                <a href="{{route('tags.index')}}"> Tags</a>
+                
+                </li>
+                @if(auth()->user()->isAdmin())
+                <li  class="list-group-item">
+                <a href="{{route('users.index')}}"> Users</a>
+                
+                </li>
+                @endif
+                </ul>
+            </div>
+            <div class="col-md-8">
+                @if(Session()->has('success'))
+                <div class="alert alert-success">
+                    {{Session()->get('success')}}
+                </div>
+                @endif
+                @if(Session()->has('error'))
+                <div class="alert alert-danger">
+                    {{Session()->get('error')}}
+                </div>
+                @endif
+                   <example-component></example-component>
+                 @yield('content')
+            </div>
+        </div> 
+        </div>
+
+        @else
+       
             @yield('content')
+        @endauth
         </main>
     </div>
 </body>
